@@ -36,5 +36,6 @@ COPY --from=builder ["/opt/build/config", "${appDir}/config"]
 COPY --from=builder ["/opt/build/dist/src", "${appDir}/"]
 
 RUN mkdir /config
+RUN mkdir /data
 
 CMD ["node", "./index.js", "--merge-config"]

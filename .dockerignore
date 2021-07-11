@@ -4,6 +4,7 @@
 bs.bat
 bs.ps1
 config/local*
+data/
 dist/
 download/
 latest.build*

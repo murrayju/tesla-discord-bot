@@ -1,6 +1,8 @@
 ---
 cron:
   interval: 0 */5 * * * * # every 5 minutes
+data:
+  history: ./data/history.json
 discord:
   channel: ''
   bot:

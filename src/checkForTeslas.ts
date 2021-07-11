@@ -1,5 +1,7 @@
 import config from '@murrayju/config';
+import fs from 'fs-extra';
 import fetch from 'node-fetch';
+import path from 'path';
 import queryString from 'query-string';
 import { sendMessage } from './sendMessage';
 
@@ -19,7 +21,11 @@ interface Vehicle {
   OdometerType: string;
 }
 
-const history: Record<string, Vehicle> = {};
+const historyFile = config.get('data.history');
+fs.ensureDirSync(path.dirname(historyFile));
+const history: Record<string, Vehicle> = fs.existsSync(historyFile)
+  ? fs.readJsonSync(historyFile)
+  : {};
 
 export const checkForTeslas = async () => {
   const baseQuery = config.get('tesla.baseQuery');
@@ -95,4 +101,5 @@ export const checkForTeslas = async () => {
     },
     Promise.resolve(),
   );
+  await fs.writeJson(config.get('data.history'), history);
 };
