@@ -74,13 +74,15 @@ export const checkForTeslas = async () => {
               } else {
                 if (!history[result.VIN]) {
                   history[result.VIN] = result;
-                  const content = `There's a ${modelName} near ${locationName}. ${
+                  const content = `There's a **${modelName}** near ${locationName}. ${
                     result.Year
                   }, $${result.TotalPrice}, ${result.Odometer} ${
                     result.OdometerType
-                  }, ${result.City} ${result.StateProvince}. <${config.get(
-                    'tesla.linkBaseUrl',
-                  )}/${params.condition}/${result.VIN}>`;
+                  }, ${result.City} ${result.StateProvince}. [${
+                    result.VIN
+                  }](<${config.get('tesla.linkBaseUrl')}/${params.condition}/${
+                    result.VIN
+                  }>)`;
                   console.log(`    ${content}`);
                   try {
                     await sendMessage({
