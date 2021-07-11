@@ -1,0 +1,15 @@
+**/node_modules/
+.env
+.vscode/
+bin/
+dist/
+download/
+latest.build*
+node*
+yarn
+yarn-error.log
+yarn.bat
+yarn.ps1
+config/local*
+bs.bat
+bs.ps1

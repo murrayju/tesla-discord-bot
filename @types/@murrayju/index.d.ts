@@ -1,0 +1,1 @@
+declare module '@murrayju/config';

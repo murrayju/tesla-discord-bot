@@ -1,0 +1,31 @@
+---
+cron:
+  interval: 0 */5 * * * * # every 5 minutes
+discord:
+  channel: ''
+  bot:
+    token: ''
+tesla:
+  baseUrl: https://www.tesla.com/inventory/api/v1/inventory-results
+  linkBaseUrl: https://www.tesla.com
+  baseQuery:
+    query:
+      model: m3
+      condition: new
+      options: {}
+      arrangeby: Price
+      order: asc
+      market: US
+      language: en
+      super_region: north america
+      # lng: -118.4
+      # lat: 34.1
+      zip: '90210'
+      range: 200
+      region: CA
+    offset: 0
+    count: 50
+    outsideOffset: 0
+    outsideSearch: false
+  models: {}
+  locations: {}

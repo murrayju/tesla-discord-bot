@@ -1,0 +1,7 @@
+---
+cron:
+  interval: CRON_INTERVAL
+discord:
+  channel: DISCORD_CHANNEL
+  bot:
+    token: DISCORD_BOT_TOKEN

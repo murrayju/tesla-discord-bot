@@ -1,0 +1,53 @@
+{
+  "name": "tesla-discord-bot",
+  "version": "1.0.0",
+  "description": "Bot to write messages about tesla to discord",
+  "main": "index.js",
+  "buildStrap": {
+    "nodeVersion": "14.17.2",
+    "yarnVersion": "1.22.5",
+    "repoType": "git",
+    "copyright": "murrayju",
+    "releaseBranch": "main",
+    "devBranch": "dev",
+    "npm": {
+      "publish": false,
+      "registry": "https://registry.yarnpkg.com/"
+    },
+    "docker": {
+      "repository": "murrayju/tesla-discord-bot",
+      "registry": "ghcr.io"
+    }
+  },
+  "scripts": {
+    "run": "ts-node targets/run",
+    "start": "./bs dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/murrayju/tesla-discord-bot.git"
+  },
+  "author": "murrayju",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {
+    "@murrayju/config": "^2.0.0",
+    "config": "^3.3.6",
+    "cron": "^1.8.2",
+    "node-fetch": "^2.6.1",
+    "query-string": "^7.0.1"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.1",
+    "@types/cron": "^1.7.3",
+    "@types/node": "^16.3.1",
+    "@types/node-fetch": "^2.5.10",
+    "build-strap": "^3.0.0",
+    "discord-api-types": "^0.18.1",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  }
+}
