@@ -19,12 +19,11 @@ interface Vehicle {
   OdometerType: string;
 }
 
-let previous: Record<string, Vehicle> = {};
+const history: Record<string, Vehicle> = {};
 
 export const checkForTeslas = async () => {
   const baseQuery = config.get('tesla.baseQuery');
 
-  const current: Record<string, Vehicle> = {};
   await Object.entries(config.get('tesla.models') as TeslaConfig).reduce(
     async (outer, [modelName, modelParams]) => {
       await outer;
@@ -58,20 +57,24 @@ export const checkForTeslas = async () => {
             });
             const data = await resp.json();
             const results: Vehicle[] =
-              (Array.isArray(data.results) ? data.results : data.results?.exact) ?? [];
+              (Array.isArray(data.results)
+                ? data.results
+                : data.results?.exact) ?? [];
             console.log(`    Found ${results.length}`);
             await results.reduce(async (p, result) => {
               await p;
               if (!result.VIN) {
                 console.error('    Vehicle without VIN', result);
               } else {
-                current[result.VIN] = result;
-                if (!previous[result.VIN]) {
-                  const content = `There's a ${modelName} near ${locationName}. ${result.Year}, $${
-                    result.TotalPrice
-                  }, ${result.Odometer} ${result.OdometerType}, ${result.City} ${
-                    result.StateProvince
-                  }. ${config.get('tesla.linkBaseUrl')}/${params.condition}/${result.VIN}`;
+                if (!history[result.VIN]) {
+                  history[result.VIN] = result;
+                  const content = `There's a ${modelName} near ${locationName}. ${
+                    result.Year
+                  }, $${result.TotalPrice}, ${result.Odometer} ${
+                    result.OdometerType
+                  }, ${result.City} ${result.StateProvince}. ${config.get(
+                    'tesla.linkBaseUrl',
+                  )}/${params.condition}/${result.VIN}`;
                   console.log(`    ${content}`);
                   try {
                     await sendMessage({
@@ -92,5 +95,4 @@ export const checkForTeslas = async () => {
     },
     Promise.resolve(),
   );
-  previous = current;
 };
