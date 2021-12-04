@@ -1,9 +1,11 @@
-import config from '@murrayju/config';
+import configPkg from '@murrayju/config';
 import fs from 'fs-extra';
 import fetch from 'node-fetch';
 import path from 'path';
 import queryString from 'query-string';
-import { sendMessage } from './sendMessage';
+import { sendMessage } from './sendMessage.js';
+
+const { default: config } = configPkg;
 
 type TeslaConfig = Record<string, Record<string, string>>;
 
@@ -61,7 +63,7 @@ export const checkForTeslas = async () => {
                   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:89.0) Gecko/20100101 Firefox/89.0',
               },
             });
-            const data = await resp.json();
+            const data = (await resp.json()) as Record<string, any>;
             const results: Vehicle[] =
               (Array.isArray(data.results)
                 ? data.results

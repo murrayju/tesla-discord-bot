@@ -1,14 +1,30 @@
-import { run, runCli, setPkg } from 'build-strap';
+import { run, setPkg } from 'build-strap';
+import { createRequire } from 'module';
 
-import pkg from '../package.json';
+const require = createRequire(import.meta.url);
 
-setPkg(pkg);
+setPkg(require('../package.json'));
 
-// Command line entrypoint
-if (require.main === module) {
-  delete require.cache[__filename]; // eslint-disable-line no-underscore-dangle
-  // eslint-disable-next-line global-require, import/no-dynamic-require
-  runCli({ resolveFn: (path: string) => require(`./${path}`).default, defaultAction: 'tsc' });
-}
+const resolveFn = async (path: string) => import(`./${path}.ts`);
+const defaultAction = 'tsc';
+const passthroughArgv = false;
 
-export default run;
+const { argv } = process;
+const module =
+  argv.length > 2
+    ? await resolveFn(argv[2])
+    : typeof defaultAction === 'string'
+    ? await resolveFn(defaultAction)
+    : defaultAction;
+const args = Array.isArray(passthroughArgv)
+  ? passthroughArgv.includes(argv[2] || defaultAction)
+    ? argv.slice(3)
+    : []
+  : passthroughArgv
+  ? argv.slice(3)
+  : [];
+
+run(module, ...args).catch((err: Error) => {
+  console.error((err && err.stack) || err);
+  process.exit(1);
+});

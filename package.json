@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Bot to write messages about tesla to discord",
   "main": "index.js",
+  "type": "module",
   "buildStrap": {
-    "nodeVersion": "14.17.2",
-    "yarnVersion": "1.22.5",
+    "nodeVersion": "16.13.1",
+    "yarnVersion": "1.22.15",
     "repoType": "git",
     "copyright": "murrayju",
     "releaseBranch": "main",
@@ -20,7 +21,7 @@
     }
   },
   "scripts": {
-    "run": "ts-node targets/run",
+    "run": "node --loader ts-node/esm ./targets/run.ts",
     "start": "./bs dev"
   },
   "repository": {
@@ -38,19 +39,19 @@
     "cron": "^1.8.2",
     "fs-extra": "^10.0.0",
     "js-yaml": "^4.1.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.0",
     "query-string": "^7.0.1"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.1",
+    "@tsconfig/node16": "^1.0.2",
     "@types/cron": "^1.7.3",
-    "@types/fs-extra": "^9.0.12",
-    "@types/node": "^16.3.1",
-    "@types/node-fetch": "^2.5.10",
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^16.11.11",
+    "@types/node-fetch": "^3.0.3",
     "build-strap": "^3.0.0",
-    "discord-api-types": "^0.18.1",
-    "prettier": "^2.3.2",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.5"
+    "discord-api-types": "^0.25.2",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
   }
 }

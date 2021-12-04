@@ -1,7 +1,9 @@
-import config from '@murrayju/config';
+import configPkg from '@murrayju/config';
 import { CronJob } from 'cron';
 
-import { checkForTeslas } from './checkForTeslas';
+import { checkForTeslas } from './checkForTeslas.js';
+
+const { default: config } = configPkg;
 
 if (process.argv.includes('--once')) {
   console.info('Single run mode...');

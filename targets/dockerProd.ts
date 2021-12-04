@@ -10,7 +10,7 @@ import {
 } from 'build-strap';
 import fs from 'fs-extra';
 
-import docker, { getBuildImage, getBuildTag } from './docker';
+import docker, { getBuildImage, getBuildTag } from './docker.js';
 
 // Run the production docker image
 export default async function dockerProd(
@@ -41,7 +41,7 @@ export default async function dockerProd(
   onKillSignal(cleanupAndExit);
 
   try {
-    // Run the tests in the builder container
+    buildLog('Starting prod container...');
     await dockerContainerRun({
       runArgs: ['--rm', '-it'],
       image: await getBuildImage(tag),
